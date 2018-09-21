@@ -1,0 +1,27 @@
+# Modules
+node_modules/
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Bower
+bower_components
+.bower-cache
+.bower-registry
+.bower-tmp
+
+# macOS
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Zips
+*.zip
