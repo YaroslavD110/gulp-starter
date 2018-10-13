@@ -1,0 +1,148 @@
+// Styles for footer section
+.footer {
+  padding: 30px 0;
+
+  .container {
+    max-width: 1140px;
+    flex-direction: column;
+    padding: 0 15px;
+
+    @include rwd(1170) {
+      padding: 0;
+    }
+  }
+
+  &-top {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 57px;
+    border-bottom: 2px solid $gray;
+
+    &__desc {
+      max-width: auto;
+      width: 100%;
+
+      .logo {
+        min-width: 124px;
+        max-width: 200px;
+      }
+
+      .desc {
+        font-size: 17px;
+        margin-top: 34px;
+
+        @include lg {
+          font-size: 20px;
+        }
+      }
+
+      @include md {
+        max-width: 355px;
+        width: auto;
+      }
+    }
+
+    &__menu {
+      display: flex;
+      flex-direction: column;
+      margin-left: 0;
+      margin-right: auto;
+
+      &-title {
+        text-transform: uppercase;
+        font-size: 18px;
+        margin-top: 0;
+
+        @include lg {
+          font-size: 24px;
+        }
+      }
+
+      &-wrap {
+        padding: 0;
+        margin: 0;
+      }
+
+      &-item {
+        list-style: none;
+        font-size: 18px;
+        margin-bottom: 9px;
+
+        @include lg {
+          font-size: 24px;
+        }
+      }
+
+      &-link {
+        text-decoration: none;
+        color: $text;
+        transition: 0.3s linear color;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+
+      @include md {
+        margin-left: auto;
+        margin-right: 0;
+      }
+    }
+  }
+
+  &-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 38px;
+    text-align: center;
+
+    &__copyright {
+      font-size: 18px;
+      margin: 0;
+      max-width: auto;
+      width: 100%;
+
+      @include lg {
+        max-width: 400px;
+        width: auto;
+      }
+    }
+
+    &__links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: auto;
+      width: 100%;
+      margin-left: auto;
+
+      @include lg {
+        max-width: 400px;
+        width: auto;
+      }
+    }
+
+    &__link {
+      font-size: 18px;
+      color: $text;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: 0.2s linear color;
+
+      &:hover {
+        color: $primary;
+      }
+
+      &-accent {
+        text-decoration: underline;
+        color: $primary;
+      }
+    }
+  }
+
+  @include sm {
+    padding: 87px 0;
+  }
+}

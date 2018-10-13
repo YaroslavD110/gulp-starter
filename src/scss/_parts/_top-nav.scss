@@ -1,0 +1,224 @@
+// Styles for top navigation
+.top-nav {
+  position: relative;
+  z-index: 1;
+  background-color: $white;
+  padding: 20px 15px;
+  max-height: 26px;
+
+  .container {
+    max-width: 1340px;
+    align-items: center;
+  }
+
+  &__toggle-btn {
+    cursor: pointer;
+    width: 30px;
+    height: 23px;
+    position: relative;
+    transform: rotate(0deg);
+    transition: 0.5s ease-in-out;
+
+    span {
+      display: block;
+      position: absolute;
+      height: 3px;
+      width: 100%;
+      background-color: $text;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: 0.25s ease-in-out;
+
+      &:nth-child(1) {
+        top: 0px;
+      }
+
+      &:nth-child(2) {
+        top: 8px;
+      }
+
+      &:nth-child(3) {
+        top: 16px;
+      }
+    }
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  .toggled-btn {
+    span {
+      &:nth-child(1) {
+        top: 8px;
+        transform: rotate(135deg);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+        left: -60px;
+      }
+
+      &:nth-child(3) {
+        top: 8px;
+        transform: rotate(-135deg);
+      }
+    }
+  }
+
+  .show-nav {
+    transform: translateX(0);
+    flex-direction: column;
+
+    @include lg {
+      flex-direction: row;
+    }
+  }
+
+  &__wrap {
+    position: absolute;
+    background-color: $white;
+    z-index: 1;
+    top: 63px;
+    left: 0;
+    width: 100%;
+    transition: transform 0.5s linear;
+    transform: translateX(-100%);
+
+    @include lg {
+      position: initial;
+      top: 0;
+      display: flex;
+      transform: translate(0);
+    }
+  }
+
+  &__logo {
+    &-wrap {
+      margin-right: 34px;
+      margin-left: auto;
+      max-height: 25px;
+
+      @include lg {
+        display: inherit;
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__actions {
+    &-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 30px;
+
+      @include lg {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__action {
+    &-wrap {
+      margin-top: 25px;
+
+      @include rwd(390) {
+        margin-top: 0;
+      }
+    }
+
+    &-input {
+      border: none;
+      background-color: transparent;
+      min-width: 173px;
+      font-family: $headers-font;
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: $primary;
+      margin-left: 12px;
+
+      &::placeholder {
+        color: $primary;
+      }
+
+      &_wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background-color: $gray;
+        margin-right: 10px;
+        border-radius: 4px;
+        padding: 8px 15px;
+
+        img {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &__dashboard {
+    display: flex;
+    align-self: flex-end;
+
+    &-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
+
+      .notified {
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: -2px;
+          border-radius: 50%;
+          background-color: $red;
+          border: 1px solid $white;
+          width: 5px;
+          height: 5px;
+        }
+      }
+    }
+
+    &-link {
+      font-family: $headers-font;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: $primary;
+    }
+
+    &-dropdown {
+      cursor: pointer;
+      position: relative;
+      margin-left: 31px;
+    }
+
+    &-avatar {
+      position: relative;
+      top: -5px;
+      max-width: 35px;
+      max-height: 35px;
+      overflow: hidden;
+      border-radius: 50%;
+      margin-left: 31px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  @include rwd(1360) {
+    padding: 20px 0;
+  }
+}

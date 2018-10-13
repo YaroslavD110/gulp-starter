@@ -16,6 +16,7 @@ body {
   font-family: $default-font;
   overflow-x: hidden;
   color: $text;
+  margin: 0;
 
   input,
   textarea {
@@ -51,5 +52,139 @@ strong {
   font-weight: bold;
 }
 
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $headers-font;
+  font-weight: 700;
+}
+
+.nice-select {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  background-color: $primary;
+  border-radius: 4px;
+  color: $white;
+  font-family: $headers-font;
+  font-weight: 500;
+  font-size: 11px;
+  min-width: 147px;
+  padding: 6px 0;
+
+  &__list {
+    display: none;
+    position: absolute;
+    top: 20px;
+    z-index: -1;
+    background-color: $white;
+    border-radius: 5px;
+    border: 1px solid $gray;
+    color: $text;
+    padding: 0;
+    width: 100%;
+
+    li {
+      padding: 5px;
+      overflow: hidden;
+      list-style: none;
+      transition: 0.3 linear background-color;
+      text-align: center;
+
+      &:hover {
+        background-color: $gray;
+      }
+    }
+  }
+
+  &__selected {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width: 85%;
+    text-align: center;
+  }
+
+  &__dropdown-icon {
+    width: 8px;
+    fill: $white;
+  }
+}
+
+.drop-down {
+  transform: scale(0) translate(-50%, 100%);
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  z-index: 999;
+  background-color: $white;
+  border-radius: 5px;
+  border: 1px solid $gray;
+  color: $text;
+  width: 100%;
+  min-width: 100px;
+  max-width: 200px;
+  transition: transform 0.5s ease-in-out;
+
+  ul {
+    padding: 0;
+
+    li {
+      padding: 5px;
+      overflow: hidden;
+      list-style: none;
+      transition: 0.3 linear background-color;
+      text-align: center;
+
+      &:hover {
+        background-color: $gray;
+      }
+    }
+  }
+}
+
+.open-drd {
+  transform: scale(1) translate(-50%, 0);
+}
+
+.btn {
+  cursor: pointer;
+  display: block;
+  border: none;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: $primary;
+  font-family: $headers-font;
+  font-weight: 500;
+  font-size: 16px;
+  color: $white;
+  transform: scale(1);
+  transition: 0.3s linear transform;
+  padding: 10px 15px;
+  width: fit-content;
+
+  &:hover {
+    transform: scale(0.985);
+  }
+}
+
 // Page parts
+@import "_parts/top-nav";
 @import "_parts/header";
+@import "_parts/quik-links";
+@import "_parts/articles";
+@import "_parts/footer";

@@ -8,13 +8,12 @@ const concat = require("gulp-concat");
 const autoprefixer = require("gulp-autoprefixer");
 const gcmq = require("gulp-group-css-media-queries");
 const notify = require("gulp-notify");
-const npmDist = require("gulp-npm-dist");
 const zip = require("gulp-zip");
-const argv = require("yargs").argv;
-const inject = require("gulp-inject");
+const babel = require("gulp-babel");
+const changed = require("gulp-changed");
+const imagemin = require("gulp-imagemin");
 
 // Config
-const isConcat = argv.concat;
 const dist = "./dist";
 const src = "./src";
 
@@ -49,18 +48,6 @@ gulp.task("Styles", () =>
     .pipe(browserSync.reload({ stream: true }))
 );
 
-// Cope dependencies
-gulp.task("JSLibs", function() {
-  gulp
-    .src(npmDist(), { base: "./node_modules/" })
-    .pipe(
-      rename(function(path) {
-        path.dirname = path.dirname.replace(/\/dist/, "").replace(/\\dist/, "");
-      })
-    )
-    .pipe(gulp.dest(`${src}/libs`));
-});
-
 // Task for minify images
 gulp.task("ImgMin", () =>
   gulp
@@ -73,32 +60,23 @@ gulp.task("ImgMin", () =>
 gulp.task("CustomJS", () =>
   gulp
     .src(`${src}/js/common.js`)
+    .pipe(
+      babel({
+        presets: ["@babel/env"]
+      })
+    )
     .pipe(uglify().on("error", notify.onError()))
     .pipe(rename({ suffix: ".min" }))
     .pipe(gulp.dest(`${src}/js`))
 );
 
 // Task for building js
-gulp.task("Scripts", ["JSLibs", "CustomJS"], () => {
-  const srcs = ["./src/libs/jquery/jquery.min.js", "./src/js/common.min.js"];
-
-  if (isConcat) {
-    Inject(
-      gulp
-        .src(srcs)
-        .pipe(concat("scripts.min.js"))
-        .pipe(uglify().on("error", notify.onError())) // Mifify js (opt.)
-        .pipe(gulp.dest(`${src}/js`))
-    );
-  } else {
-    Inject(
-      gulp
-        .src(srcs)
-        .pipe(uglify().on("error", notify.onError())) // Mifify js (opt.)
-        .pipe(gulp.dest(`${src}/js`))
-    );
-  }
-});
+gulp.task("Scripts", ["CustomJS"], () =>
+  gulp
+    .src(["./src/libs/jquery/jquery.min.js", "./src/js/common.min.js"])
+    .pipe(concat("scripts.min.js"))
+    .pipe(gulp.dest(`${src}/js`))
+);
 
 // Task for building project
 gulp.task("build", ["ImgMin", "Styles", "Scripts"], () => {
@@ -127,19 +105,3 @@ gulp.task("default", ["Styles", "Scripts", "BrowserSync"], () => {
   gulp.watch(`${src}/js/*.js`, ["Scripts"]);
   gulp.watch(`${src}/*.html`).on("change", browserSync.reload);
 });
-
-// Common
-function Inject(files) {
-  return gulp
-    .src(`${src}/**/*.html`)
-    .pipe(
-      inject(files, {
-        transform(filepath) {
-          newFilePath = filepath.replace(/\/src\//, "");
-          return `<script src="${newFilePath}"></script>`;
-        }
-      }).on("error", notify.onError())
-    )
-    .pipe(gulp.dest(src))
-    .pipe(browserSync.reload({ stream: true }));
-}

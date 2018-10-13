@@ -1,15 +1,17 @@
 // Fonts
-$default-font: "roboto-example", sans-serif;
+$default-font: "Futura", sans-serif;
+$headers-font: "Gotham", sans-serif;
 
 // Page collors
-$accent: #f3f3f3;
+$primary: #1b5579;
+$white: #ffffff;
+$gray: #f6f5f9;
+$red: #a83434;
+$green: #8dc63f;
 
 // Main text color
-$text: #333;
+$text: #545454;
 
-// Customization Bootstrap vars from "app/libs/bootstrap/scss/_variables.scss"
-$grid-gutter-width: 30px;
-$grid-columns: 12;
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -17,11 +19,3 @@ $grid-breakpoints: (
   lg: 992px,
   xl: 1200px
 );
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px
-);
-
-$gutter: $grid-gutter-width;
