@@ -10,11 +10,8 @@ const gcmq = require("gulp-group-css-media-queries");
 const notify = require("gulp-notify");
 const npmDist = require("gulp-npm-dist");
 const zip = require("gulp-zip");
-const argv = require("yargs").argv;
-const inject = require("gulp-inject");
 
 // Config
-const isConcat = argv.concat;
 const dist = "./dist";
 const src = "./src";
 
@@ -54,7 +51,7 @@ gulp.task("JSLibs", function() {
   gulp
     .src(npmDist(), { base: "./node_modules/" })
     .pipe(
-      rename(function(path) {
+      rename(path => {
         path.dirname = path.dirname.replace(/\/dist/, "").replace(/\\dist/, "");
       })
     )
@@ -79,26 +76,13 @@ gulp.task("CustomJS", () =>
 );
 
 // Task for building js
-gulp.task("Scripts", ["JSLibs", "CustomJS"], () => {
-  const srcs = ["./src/libs/jquery/jquery.min.js", "./src/js/common.min.js"];
-
-  if (isConcat) {
-    Inject(
-      gulp
-        .src(srcs)
-        .pipe(concat("scripts.min.js"))
-        .pipe(uglify().on("error", notify.onError())) // Mifify js (opt.)
-        .pipe(gulp.dest(`${src}/js`))
-    );
-  } else {
-    Inject(
-      gulp
-        .src(srcs)
-        .pipe(uglify().on("error", notify.onError())) // Mifify js (opt.)
-        .pipe(gulp.dest(`${src}/js`))
-    );
-  }
-});
+gulp.task("Scripts", ["CustomJS"], () =>
+  gulp
+    .src(["./src/libs/jquery/jquery.min.js", "./src/js/common.min.js"])
+    .pipe(concat("scripts.min.js"))
+    //.pipe(uglify().on("error", notify.onError())) // Mifify js (opt.)
+    .pipe(gulp.dest(`${src}/js`))
+);
 
 // Task for building project
 gulp.task("build", ["ImgMin", "Styles", "Scripts"], () => {
